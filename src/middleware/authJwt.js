@@ -5,6 +5,9 @@ const enums = require('../utils/enum');
 
 
 verifyToken = (req, res, next) => {
+
+  if(!req.cookies.Sockeep){req.cookies.Sockeep = req.headers.authorization;}
+
   let token = req.cookies[process.env.COOKIE_NAME];
   if (!token) {
     return res.status(403).send({message: "No token provided!"});
