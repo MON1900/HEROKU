@@ -26,7 +26,7 @@ router.post("/signin", controller.signin);
 
 router.post("/signinFacebook", controller.signinFacebook);
 
-router.post("/signout", [authJwt.verifyToken], controller.signout);
+router.post("/signout", controller.signout);
 
 router.post("/keyEmail", controller.keyEmail);
 router.post("/resetPassword", controller.resetPassword);
