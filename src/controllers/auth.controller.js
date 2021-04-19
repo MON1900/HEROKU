@@ -52,7 +52,10 @@ exports.signinFacebook = async (req, res) => {
 
   var facebookId = await userModel.findOne({facebookId : req.body.id}).then((user)=>{return user;});
 
-  var email = await userModel.findOne({email : req.body.email}).then((user)=>{return user;});
+  var email = null;
+  if(req.body.email != null){
+    email = await userModel.findOne({email : req.body.email}).then((user)=>{return user;});
+  }
 
   console.log(facebookId, email);
 
