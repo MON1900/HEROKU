@@ -61,7 +61,7 @@ console.log(req.body);
       await userModel.insertMany({
           username: req.body.first_name+' '+req.body.last_name,
           facebookId: req.body.id,
-          email: req.body.email
+          // email: req.body.email
       }).then((user) => {
           var user = user[0];
           var token = tokenHandler.createToken(user._id, user.tokenVersion);
