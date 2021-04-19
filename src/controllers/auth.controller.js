@@ -45,7 +45,7 @@ exports.signin = (req, res) => {
 };
 
 exports.signinFacebook = async (req, res) => {
-
+console.log(req.body);
   var checkToken = await tokenHandler.checkToken(req, res);
   if (checkToken) {return res.status(404).send({ message: "Already logged in." });}
 
