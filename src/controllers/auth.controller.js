@@ -62,7 +62,7 @@ exports.signinFacebook = async (req, res) => {
   if(facebookId==null && email==null){
       userModel.create({
           username: req.body.first_name+' '+req.body.last_name,
-          facebookId: req.body.id
+          facebookId: req.body.id,
           // email: req.body.email==null? null : req.body.email.toLowerCase()
       }).then((user) => {
           var user = user[0];
