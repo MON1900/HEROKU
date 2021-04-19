@@ -55,14 +55,15 @@ exports.signinFacebook = async (req, res) => {
   var email = null;
   if(req.body.email){email = await userModel.findOne({email : req.body.email}).then((user)=>{return user;});}
 
-  // console.log(facebookId, email);
+  console.log(facebookId, email);
 
   if(facebookId==null && email==null){
       userModel.insertMany({
           username: req.body.first_name+' '+req.body.last_name,
           facebookId: req.body.id,
-          email: email===null? req.body.email : null
+          email: req.body.email
       }).then((user) => {
+        console.log(user);
           var user = user[0];
           var token = tokenHandler.createToken(user._id, user.tokenVersion);
           tokenHandler.sendToken(res, token);
