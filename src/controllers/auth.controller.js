@@ -46,7 +46,7 @@ exports.signin = (req, res) => {
 
 exports.signinFacebook = async (req, res) => {
 
-  console.log(req.body);
+  // console.log(req.body);
   var checkToken = await tokenHandler.checkToken(req, res);
   if (checkToken) {return res.status(404).send({ message: "Already logged in." });}
 
@@ -55,7 +55,7 @@ exports.signinFacebook = async (req, res) => {
   var email = null;
   if(req.body.email){email = await userModel.findOne({email : req.body.email}).then((user)=>{return user;});}
 
-  console.log(facebookId, email);
+  // console.log(facebookId, email);
 
   if(facebookId==null && email==null){
       await userModel.insertMany({
