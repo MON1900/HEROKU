@@ -23,7 +23,7 @@ exports.signup = async (req, res) => {
 
 
 exports.signin = (req, res) => {
-  
+
   userModel.findOne({
     email : req.body.email.toLowerCase()
   }).then( async (user) => {
@@ -47,7 +47,6 @@ exports.signin = (req, res) => {
 exports.signinFacebook = async (req, res) => {
 
   // console.log(req.body);
-
   var checkToken = await tokenHandler.checkToken(req, res);
   if (checkToken) {return res.status(404).send({ message: "Already logged in." });}
 
@@ -105,6 +104,7 @@ exports.signinFacebook = async (req, res) => {
     });
   }
 
+
 };
 
 
@@ -136,15 +136,14 @@ exports.signinFacebook = async (req, res) => {
 // };
 
 exports.signout = (req, res) => {
-
+  if(!req.cookies.Sockeep){req.cookies.Sockeep = req.headers.authorization;}
   var token = req.cookies[process.env.COOKIE_NAME];
   var userVerify = jwt.verify(token, process.env.COOKIE_SECRET);
-  console.log(userVerify);
   userModel.findOne({
     _id : userVerify.userId
   }).then( async (user) => {
-    // user.tokenVersion = user.tokenVersion+1;
-    // user.save();
+      // user.tokenVersion = user.tokenVersion+1;
+      // user.save();
 
     // res.clearCookie(process.env.COOKIE_NAME);
     res.status(200).json({ message: 'logout success'});
