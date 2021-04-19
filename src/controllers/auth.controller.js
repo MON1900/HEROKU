@@ -116,13 +116,14 @@ exports.signinFacebook = async (req, res) => {
 // };
 
 exports.signout = (req, res) => {
+  if(!req.cookies.Sockeep){req.cookies.Sockeep = req.headers.authorization;}
   var token = req.cookies[process.env.COOKIE_NAME];
   var userVerify = jwt.verify(token, process.env.COOKIE_SECRET);
   userModel.findOne({
     _id : userVerify.userId
   }).then( async (user) => {
-    user.tokenVersion = user.tokenVersion+1;
-    user.save();
+      // user.tokenVersion = user.tokenVersion+1;
+      // user.save();
 
     // res.clearCookie(process.env.COOKIE_NAME);
     res.status(200).json({ message: 'logout success'});

@@ -29,7 +29,7 @@ verifyToken = (req, res, next) => {
           if(((Date.now()/1000) - verifyToken.iat) > (60 * 60 * 24 * 15)){
             // New token to client
             res.clearCookie(process.env.COOKIE_NAME);
-            user.tokenVersion = user.tokenVersion+1;user.save();
+            // user.tokenVersion = user.tokenVersion+1;user.save();
             var token = tokenHandler.createToken(user.userId, user.tokenVersion);
             tokenHandler.sendToken(res, token);
           }
