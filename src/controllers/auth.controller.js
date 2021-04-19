@@ -63,11 +63,11 @@ exports.signinFacebook = async (req, res) => {
       await userModel.insertMany({
           username: req.body.first_name+' '+req.body.last_name,
           facebookId: req.body.id,
-          email: req.body.email==null? null : req.body.email
+          email: 'bb.b@gmail.com'
       }).then((user) => {
-          // var user = user[0];
-          // var token = tokenHandler.createToken(user._id, user.tokenVersion);
-          // tokenHandler.sendToken(res, token);
+          var user = user[0];
+          var token = tokenHandler.createToken(user._id, user.tokenVersion);
+          tokenHandler.sendToken(res, token);
  
       }).catch(error => {
           res.status(400).json({ message: 'Insert not found!'});
