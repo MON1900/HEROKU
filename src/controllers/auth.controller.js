@@ -84,7 +84,7 @@ exports.signinFacebook = async (req, res) => {
   else if(facebookId!=null && email==null){
     userModel.findOne({
       facebookId : req.body.id
-    }).then( async (user) => {
+    }, { new: true}).then( async (user) => {
       if(req.body.email){ user.email = req.body.email; user.save();}
       var token = tokenHandler.createToken(user._id, user.tokenVersion);
       tokenHandler.sendToken(res, token);
