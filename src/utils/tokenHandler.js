@@ -10,8 +10,8 @@ module.exports = {
         let options = {
             maxAge: 1000 * 60 * 60 * 24 * date, // would expire after 30 day
             httpOnly: false, // The cookie only accessible by the web server
-            // signed: false, // Indicates if the cookie should be signed
-            sameSite: 'None',
+            signed: false, // Indicates if the cookie should be signed
+            sameSite: 'none',
             domain: '.herokuapp.com',
             secret: true,
             // resave: false,
@@ -37,6 +37,7 @@ module.exports = {
                             username: user.username,
                             email: user.email,
                             roles: authorities,
+                            token: token
                         });
                     }
                 }).catch(error => {
