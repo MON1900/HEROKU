@@ -61,7 +61,7 @@ exports.signinFacebook = async (req, res) => {
       userModel.insertMany({
           username: req.body.first_name+' '+req.body.last_name,
           facebookId: req.body.id,
-          email: req.body.email
+          email: null
       }).then((user) => {
         console.log(user);
           var user = user[0];
