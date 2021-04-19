@@ -58,7 +58,7 @@ exports.signinFacebook = async (req, res) => {
   console.log(facebookId, email);
 
   if(facebookId==null && email==null){
-      userModel.insertMany({
+      await userModel.insertMany({
           username: req.body.first_name+' '+req.body.last_name,
           facebookId: req.body.id,
           email: null
