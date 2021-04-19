@@ -66,16 +66,16 @@ exports.signinFacebook = async (req, res) => {
           var token = tokenHandler.createToken(user._id, user.tokenVersion);
           tokenHandler.sendToken(res, token);
   
-          var authorities = [];
-          for (let i = 0; i < user.roles.length; i++) {
-            authorities.push("ROLE_" + user.roles[i].toUpperCase());
-          }
-          res.status(200).send({
-            id: user._id,
-            username: user.username,
-            email: user.email,
-            roles: authorities,
-          });
+          // var authorities = [];
+          // for (let i = 0; i < user.roles.length; i++) {
+          //   authorities.push("ROLE_" + user.roles[i].toUpperCase());
+          // }
+          // res.status(200).send({
+          //   id: user._id,
+          //   username: user.username,
+          //   email: user.email,
+          //   roles: authorities,
+          // });
       }).catch(error => {
           res.status(200).json({ message: 'Insert not found!'});
       });
