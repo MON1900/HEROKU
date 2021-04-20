@@ -3,7 +3,7 @@ const userModel = require('../models/user.model');
 
 module.exports = {
     createToken: function(userId, tokenVersion) {
-        return jwt.sign({ userId, tokenVersion}, process.env.COOKIE_SECRET, { expiresIn: '30 day'});
+        return jwt.sign({ userId, tokenVersion=0}, process.env.COOKIE_SECRET, { expiresIn: '30 day'});
     },
     sendToken: function(res, token) {
         var date = 30;
@@ -25,8 +25,8 @@ module.exports = {
             else{
                 await userModel.findById(data.userId).then( async (user) => {
                     if(user){
-                        user.tokenVersion = user.tokenVersion;
-                        user.save();
+                        // user.tokenVersion = user.tokenVersion+1;
+                        // user.save();
                         res.cookie(process.env.COOKIE_NAME, token, options);
                         var authorities = [];
                         for (let i = 0; i < user.roles.length; i++) {
