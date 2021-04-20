@@ -165,13 +165,14 @@ exports.signout = (req, res) => {
 };
 
 exports.keyEmail = (req, res) => {
-  console.log(req.body);
+  
   userModel.findOne({
     email : req.body.email.toLowerCase()
   }).then( async (user) => {
     
     if (!user) {return res.status(404).send({ message: "User Not found." });}
     else{
+      console.log(user);
       var codeResetPassword = Math.floor(Math.random() * 8999) + 1000;
       var codeAgeResetPassword = Date.now() + 1000*60*5;
         await userModel.findOneAndUpdate({email: req.body.email}, {$set: {codeResetPassword, codeAgeResetPassword}}, { new: true}, function(err, result) {
