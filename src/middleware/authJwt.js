@@ -9,12 +9,15 @@ verifyToken = (req, res, next) => {
   if(!req.cookies.Sockeep){req.cookies.Sockeep = req.headers.authorization;}
 
   let token = req.cookies[process.env.COOKIE_NAME];
-  console.log(req.headers, token);
+  
   if (!token) {
     return res.status(403).send({message: "No token provided!"});
   }
   
   jwt.verify(token, process.env.COOKIE_SECRET, async (err, userVerify) => {
+    if(userVerify){
+      console.log(userVerify);
+    }
     if (err) {
       return res.clearCookie(process.env.COOKIE_NAME).status(401).send({message: "Unauthorized!"});
     }
