@@ -93,6 +93,10 @@ exports.signinFacebook = async (req, res) => {
         var token = tokenHandler.createToken(user._id, user.tokenVersion);
         tokenHandler.sendToken(res, token);
       });}
+      else{
+        var token = tokenHandler.createToken(user._id, user.tokenVersion);
+        tokenHandler.sendToken(res, token);
+      }
       
     }).catch(err => {
       res.status(400).send({ message: err.message });
