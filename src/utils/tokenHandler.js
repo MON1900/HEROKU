@@ -25,8 +25,8 @@ module.exports = {
             else{
                 await userModel.findById(data.userId).then( async (user) => {
                     if(user){
-                        // user.tokenVersion = user.tokenVersion+1;
-                        // user.save();
+                        user.tokenVersion = user.tokenVersion;
+                        user.save();
                         res.cookie(process.env.COOKIE_NAME, token, options);
                         var authorities = [];
                         for (let i = 0; i < user.roles.length; i++) {
