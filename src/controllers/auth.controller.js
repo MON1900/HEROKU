@@ -102,9 +102,10 @@ exports.signinFacebook = async (req, res) => {
     await userModel.findOne({
       email : req.body.email
     }).then( async (user) => {
-      user.facebookId = req.body.id; user.save();
-      var token = tokenHandler.createToken(user._id, user.tokenVersion);
-      tokenHandler.sendToken(res, token);
+      user.facebookId = req.body.id; user.save(()=>{
+        var token = tokenHandler.createToken(user._id, user.tokenVersion);
+        tokenHandler.sendToken(res, token);
+      });
     }).catch(err => {
       res.status(400).send({ message: err.message });
     });
