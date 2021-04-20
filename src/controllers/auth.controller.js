@@ -182,6 +182,7 @@ exports.keyEmail = (req, res) => {
             var transporter = nodemailer.createTransport({
               host: 'smtp.gmail.com',
               port: 587,
+              protocol: tls,
               secure: false,
               service: 'gmail',
                 auth: {
