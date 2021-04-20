@@ -4,7 +4,7 @@ const userModel = require('../models/user.model');
 const tokenHandler = require('../utils/tokenHandler');
 const nodemailer = require('nodemailer');
 
-exports.signup = (req, res) => { 
+exports.signup = async (req, res) => { 
 console.log(req.body);
   userModel.create({
     username: req.body.username,
