@@ -60,7 +60,7 @@ exports.signinFacebook = async (req, res) => {
   console.log(facebookId, email);
 
   if(facebookId==null && email==null){
-      await userModel.insertMany({
+      await userModel.insert({
           facebookId: req.body.id,
       }).then((user) => {
           var user = user[0];
@@ -72,38 +72,38 @@ exports.signinFacebook = async (req, res) => {
       });
       
   }
-  else if(facebookId!=null && email!=null){
-    userModel.findOne({
-      facebookId : req.body.id
-    }).then( async (user) => {
-      var token = tokenHandler.createToken(user._id, user.tokenVersion);
-      tokenHandler.sendToken(res, token);
-    }).catch(err => {
-      res.status(400).send({ message: err.message });
-    });
-  }
-  else if(facebookId!=null && email==null){
-    userModel.findOne({
-      facebookId : req.body.id
-    }).then( async (user) => {
-      if(req.body.email){ user.email = req.body.email; user.save();}
-      var token = tokenHandler.createToken(user._id, user.tokenVersion);
-      tokenHandler.sendToken(res, token);
-    }).catch(err => {
-      res.status(400).send({ message: err.message });
-    });
-  }
-  else if(facebookId==null && email!=null){
-    userModel.findOne({
-      email : req.body.email
-    }).then( async (user) => {
-      user.facebookId = req.body.id; user.save();
-      var token = tokenHandler.createToken(user._id, user.tokenVersion);
-      tokenHandler.sendToken(res, token);
-    }).catch(err => {
-      res.status(400).send({ message: err.message });
-    });
-  }
+  // else if(facebookId!=null && email!=null){
+  //   userModel.findOne({
+  //     facebookId : req.body.id
+  //   }).then( async (user) => {
+  //     var token = tokenHandler.createToken(user._id, user.tokenVersion);
+  //     tokenHandler.sendToken(res, token);
+  //   }).catch(err => {
+  //     res.status(400).send({ message: err.message });
+  //   });
+  // }
+  // else if(facebookId!=null && email==null){
+  //   userModel.findOne({
+  //     facebookId : req.body.id
+  //   }).then( async (user) => {
+  //     if(req.body.email){ user.email = req.body.email; user.save();}
+  //     var token = tokenHandler.createToken(user._id, user.tokenVersion);
+  //     tokenHandler.sendToken(res, token);
+  //   }).catch(err => {
+  //     res.status(400).send({ message: err.message });
+  //   });
+  // }
+  // else if(facebookId==null && email!=null){
+  //   userModel.findOne({
+  //     email : req.body.email
+  //   }).then( async (user) => {
+  //     user.facebookId = req.body.id; user.save();
+  //     var token = tokenHandler.createToken(user._id, user.tokenVersion);
+  //     tokenHandler.sendToken(res, token);
+  //   }).catch(err => {
+  //     res.status(400).send({ message: err.message });
+  //   });
+  // }
 
 
 };
