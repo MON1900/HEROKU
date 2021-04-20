@@ -172,12 +172,13 @@ exports.keyEmail = (req, res) => {
     
     if (!user) {return res.status(404).send({ message: "User Not found." });}
     else{
-      console.log(user);
+      
       var codeResetPassword = Math.floor(Math.random() * 8999) + 1000;
       var codeAgeResetPassword = Date.now() + 1000*60*5;
-        await userModel.findOneAndUpdate({email: req.body.email}, {$set: {codeResetPassword, codeAgeResetPassword}}, { new: true}, function(err, result) {
+        await userModel.findOneAndUpdate({email: req.body.email}, {$set: {codeResetPassword, codeAgeResetPassword}}, { new: true}, async function(err, result) {
           if (err) {res.send(err); return err;}
           if (result) {
+
             var transporter = nodemailer.createTransport({
               service: 'gmail',
                 auth: {
@@ -188,10 +189,10 @@ exports.keyEmail = (req, res) => {
             var mailOptions = {
               from: 'Parinya.Phapha@gmail.com',
               to: req.body.email,
-              subject: 'Sending Email using Node.js',
+              subject: 'Reset Password for Sockeep',
               text: 'Sockeep: รหัส KeyCode \"'+result.codeResetPassword+'\" ใช้ในการรีเซ็ตรหัสผ่าน',
             };    
-            transporter.sendMail(mailOptions, function(error, info){
+            await transporter.sendMail(mailOptions, function(error, info){
               if (error) {
                 // console.log(error);
                 return res.status(404).send({ message: error });
@@ -201,6 +202,8 @@ exports.keyEmail = (req, res) => {
                 return res.status(200).json({ message: 'The KeyCode has been sent to \''+ req.body.email +'\' Your email already'});
               }
             });
+
+
           }
         });
     }
@@ -233,5 +236,6 @@ exports.resetPassword = (req, res) => {
     res.status(500).send({ message: err.message });
   });
 };
+
 
 
