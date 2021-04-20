@@ -16,7 +16,7 @@ exports.addItemProduct = (req, res) => {
     if(isArrays){req.body.id.forEach(data => {data.userId = req.userId;});}
     else{req.body.id.userId = req.userId;}
 
-    basketModel.insertMany(req.body.id, { $set: { "userId" : "123456789" } }).then((user) => {
+    basketModel.insertMany(req.body.id).then((user) => {
         res.json(user);
     }).catch(error => {
         res.status(500).json({ message: 'Insert not found!'});
