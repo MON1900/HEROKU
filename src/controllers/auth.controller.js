@@ -5,7 +5,7 @@ const tokenHandler = require('../utils/tokenHandler');
 const nodemailer = require('nodemailer');
 
 exports.signup = async (req, res) => { 
-console.log(req.body);
+
   userModel.create({
     username: req.body.username,
     email: req.body.email.toLowerCase(),
@@ -46,7 +46,7 @@ exports.signin = (req, res) => {
 
 exports.signinFacebook = async (req, res) => {
 
-  // console.log(req.body);
+  
   var checkToken = await tokenHandler.checkToken(req, res);
   if (checkToken) {return res.status(404).send({ message: "Already logged in." });}
 
@@ -56,8 +56,9 @@ exports.signinFacebook = async (req, res) => {
   if(req.body.email != null){
     email = await userModel.findOne({email : req.body.email}).then((user)=>{return user;});
   }
-
-  // console.log(facebookId, email);
+  
+  console.log(req.body);
+  console.log(facebookId, email);
 
   if(facebookId==null && email==null){
       await userModel.insertMany({
