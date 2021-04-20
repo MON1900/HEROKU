@@ -56,7 +56,7 @@ exports.signinFacebook = async (req, res) => {
   if(req.body.email != null){
     email = await userModel.findOne({email : req.body.email}).then((user)=>{return user;});
   }
-  
+
   console.log(req.body);
   console.log(facebookId, email);
 
@@ -76,7 +76,7 @@ exports.signinFacebook = async (req, res) => {
       
   }
   else if(facebookId!=null && email!=null){
-    userModel.findOne({
+    await userModel.findOne({
       facebookId : req.body.id
     }).then( async (user) => {
       var token = tokenHandler.createToken(user._id, user.tokenVersion);
@@ -86,18 +86,20 @@ exports.signinFacebook = async (req, res) => {
     });
   }
   else if(facebookId!=null && email==null){
-    userModel.findOne({
+    await userModel.findOne({
       facebookId : req.body.id
-    }).then( async (user) => {
-      if(req.body.email!=null){ user.email = req.body.email; user.save();}
-      var token = tokenHandler.createToken(user._id, user.tokenVersion);
-      tokenHandler.sendToken(res, token);
+    }, {new: true}).then( async (user) => {
+      if(req.body.email!=null){ user.email = req.body.email; user.save(()=>{
+        var token = tokenHandler.createToken(user._id, user.tokenVersion);
+        tokenHandler.sendToken(res, token);
+      });}
+      
     }).catch(err => {
       res.status(400).send({ message: err.message });
     });
   }
   else if(facebookId==null && email!=null){
-    userModel.findOne({
+    await userModel.findOne({
       email : req.body.email
     }).then( async (user) => {
       user.facebookId = req.body.id; user.save();
