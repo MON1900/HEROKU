@@ -26,13 +26,13 @@ verifyToken = (req, res, next) => {
     
     await userModel.findOne({_id : userVerify.userId}).then( async (user) => {
       if(user){
-        console.log(userVerify.tokenVersion , (user.tokenVersion));
+        
         if(userVerify.tokenVersion === (user.tokenVersion)){
           // Extend the token service if used more than 15 days.
           if(((Date.now()/1000) - verifyToken.iat) > (60 * 60 * 24 * 15)){
             // New token to client
             res.clearCookie(process.env.COOKIE_NAME);
-            // user.tokenVersion = user.tokenVersion+1;user.save();
+            user.tokenVersion = user.tokenVersion;user.save();
             var token = tokenHandler.createToken(user.userId, user.tokenVersion);
             tokenHandler.sendToken(res, token);
           }
