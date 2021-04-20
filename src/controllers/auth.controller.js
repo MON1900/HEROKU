@@ -180,7 +180,9 @@ exports.keyEmail = (req, res) => {
           if (result) {
 
             var transporter = nodemailer.createTransport({
-              service: 'gmail',
+              host: 'smtp.gmail.com',
+              port: 465,
+              secure: true,
                 auth: {
                   user: 'Parinya.Phapha@gmail.com',
                   pass: 'Parinya8898'
