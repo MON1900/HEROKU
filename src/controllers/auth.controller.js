@@ -165,6 +165,7 @@ exports.signout = (req, res) => {
 };
 
 exports.keyEmail = (req, res) => {
+  console.log(req.body);
   userModel.findOne({
     email : req.body.email.toLowerCase()
   }).then( async (user) => {
