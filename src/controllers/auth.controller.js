@@ -60,7 +60,7 @@ exports.signinFacebook = async (req, res) => {
   console.log(facebookId, email);
 
   if(facebookId==null && email==null){
-      await userModel.insert({
+      await userModel.create({
           facebookId: req.body.id,
       }).then((user) => {
           var user = user[0];
