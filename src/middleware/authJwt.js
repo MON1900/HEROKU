@@ -9,6 +9,7 @@ verifyToken = (req, res, next) => {
   if(!req.cookies.Sockeep){req.cookies.Sockeep = req.headers.authorization;}
 
   let token = req.cookies[process.env.COOKIE_NAME];
+  console.log(req.headers, token);
   if (!token) {
     return res.status(403).send({message: "No token provided!"});
   }
