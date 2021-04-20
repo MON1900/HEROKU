@@ -3,7 +3,8 @@ const userModel = require('../models/user.model');
 
 module.exports = {
     createToken: function(userId, tokenVersion) {
-        return jwt.sign({ userId, tokenVersion=0}, process.env.COOKIE_SECRET, { expiresIn: '30 day'});
+        tokenVersion=0;
+        return jwt.sign({ userId, tokenVersion}, process.env.COOKIE_SECRET, { expiresIn: '30 day'});
     },
     sendToken: function(res, token) {
         var date = 30;
