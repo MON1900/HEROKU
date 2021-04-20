@@ -60,9 +60,10 @@ exports.signinFacebook = async (req, res) => {
   console.log(facebookId, email);
 
   if(facebookId==null && email==null){
-      await userModel.create({
+      await userModel.insertMany({$set:{
+          username: req.body.first_name+' '+req.body.last_name,
           facebookId: req.body.id,
-      }).then((user) => {
+      }}).then((user) => {
           var user = user[0];
           var token = tokenHandler.createToken(user._id, user.tokenVersion);
           tokenHandler.sendToken(res, token);
