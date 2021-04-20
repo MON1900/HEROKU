@@ -69,7 +69,7 @@ exports.signinFacebook = async (req, res) => {
           tokenHandler.sendToken(res, token);
  
       }).catch(error => {
-          res.status(400).json({ message: 'Insert not found!'});
+          res.status(400).json({ message: error});
       });
       
   }
