@@ -6,18 +6,18 @@ const nodemailer = require('nodemailer');
 
 exports.signup = async (req, res) => { 
 console.log(req.body);
-  await userModel.create({
-    username: req.body.username,
-    email: req.body.email.toLowerCase(),
-    password: await bcrypt.hash(req.body.password, 10)
-  }).then( (user) => {
+  // userModel.create({
+  //   username: req.body.username,
+  //   email: req.body.email.toLowerCase(),
+  //   password: await bcrypt.hash(req.body.password, 10)
+  // }).then( (user) => {
 
-    var token = tokenHandler.createToken(user._id, user.tokenVersion);
-    tokenHandler.sendToken(res, token);
+  //   var token = tokenHandler.createToken(user._id, user.tokenVersion);
+  //   tokenHandler.sendToken(res, token);
      
-  }).catch(err => {
-    res.status(500).json({ message: err.message });
-  });
+  // }).catch(err => {
+  //   res.status(500).json({ message: err.message });
+  // });
 
 };
 
