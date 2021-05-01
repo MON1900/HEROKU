@@ -184,6 +184,13 @@ exports.keyEmail = (req, res) => {
               port: 587,
               protocol: tls,
               secure: false,
+
+              // port: 587 or 465 (587 for tls, 465 for ssl)
+              // protocol: tls or ssl
+              // secure: false, // true for 465, false for other ports
+              // // Allow less secure apps access to your account. https://support.google.com/accounts/answer/6010255
+              // // Visit http://www.google.com/accounts/DisplayUnlockCaptcha and sign in with your
+
               service: 'gmail',
                 auth: {
                   user: 'Parinya.Phapha@gmail.com',
