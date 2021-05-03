@@ -23,8 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 const corsOptions ={
-    origin: 'https://sockeep.com',
-    credentials: true,            //access-control-allow-credentials:true
+    origin: 'http://localhost:4200' /*'https://sockeep.com'*/,
+    credentials: true,            // access-control-allow-credentials:true
     optionSuccessStatus: 400,
 }
 app.use(cors(corsOptions));

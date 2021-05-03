@@ -23,6 +23,17 @@ exports.addItemProduct = (req, res) => {
     }); 
 };
 
+exports.updateItemProduct = (req, res) => {
+    req.body.UpdDate = new Date();
+    const updated = {$set: req.body};
+    basketModel.findByIdAndUpdate(req.body._id, updated, { new: true}, (err, result) => {
+        if (err) {res.send(err); res.status(400).json({ message: 'Incorrect information!'}); return err;}
+        if (result) {
+            res.json({ message: 'Update success'});
+        }
+    }); 
+};
+
 exports.deleteItemProduct = (req, res) => {
     basketModel.findByIdAndDelete(req.body.id).then((user) => {
         res.json({ message: 'delete success'});

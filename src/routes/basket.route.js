@@ -17,6 +17,7 @@ router.get('/', controller.getBasket);
 
 router.get('/getItemProduct', [authJwt.verifyToken, authJwt.isClient], controller.getItemProduct);
 router.post('/addItemProduct', [authJwt.verifyToken, authJwt.isClient], controller.addItemProduct);
+router.post('/updateItemProduct', [authJwt.verifyToken, authJwt.isClient], controller.updateItemProduct);
 router.post('/deleteItemProduct', [authJwt.verifyToken, authJwt.isClient], controller.deleteItemProduct);
 
 module.exports = router;
